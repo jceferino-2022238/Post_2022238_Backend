@@ -5,11 +5,13 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { dbConnection } from './mongo.js'
 import postRoutes from '../src/posts/posts.routes.js'
+import commentRoutes from '../src/comments/comments.routes.js'
 class Server{
     constructor(){
         this.app = express()
         this.port = process.env.PORT;
         this.postPath = '/blog_2022238/v1/posts'
+        this.commentPath = '/blog_2022238/v1/comments'
         this.middlewares()
         this.connectDB()
         this.routes()
@@ -28,6 +30,7 @@ class Server{
 
     routes(){
         this.app.use(this.postPath, postRoutes)
+        this.app.use(this.commentPath, commentRoutes)
     }   
     listen(){
         this.app.listen(this.port, ()=>{
