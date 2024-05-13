@@ -6,7 +6,7 @@ const PostSchema = mongoose.Schema({
     },
     classI:{
         type: String,
-        required: [true, 'Email isnt optional']
+        required: [true, 'Class isnt optional']
     },
     text:{
         type: String,
