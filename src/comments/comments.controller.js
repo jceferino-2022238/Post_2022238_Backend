@@ -12,7 +12,22 @@ export const commentGet = async (req=request, res=response) =>{
         comments
     })
 }
-
+export const getCommentsFromPost = async (req, res)=>{
+    try {
+        const {id} = req.params
+        const post = await Post.findById(id)
+        if(!post){
+            return res.status(404).json({error: 'Post not found'})
+        }
+        const comments = await Comment.find({post: post._id})
+        res.status(200).json({
+            comments
+        })
+    } catch (e) {
+        console.error('Error retrieving comments', e)
+        res.status(500).json({e: 'Internal Server Error'})
+    }
+}
 export const commentPost = async (req, res) =>{
     const {id} = req.params
     const {title, content} = req.body;

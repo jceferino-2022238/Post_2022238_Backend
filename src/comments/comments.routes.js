@@ -2,9 +2,13 @@ import {Router} from 'express'
 import {check} from 'express-validator'
 import { validateFields } from '../middlewares/validate-fields.js'
 import { exComment, exPostById } from '../helpers/db-validators.js'
-import { commentGet, commentPost } from './comments.controller.js';
+import { commentGet, commentPost, getCommentsFromPost } from './comments.controller.js';
 const router =  Router();
 router.get("/", commentGet)
+router.get("/:id",
+    [
+        check("id", "Not valid ID").isMongoId(),
+    ], getCommentsFromPost)
 router.post(
     "/:id",
     [
